@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Shell编程笔记01 · 🍺寇老师的小站🍺</title><meta name="description" content="Shell编程笔记01 - Yunkou"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="🍺寇老师的小站🍺"><meta name="generator" content="Hexo 4.0.0"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/Yunkou" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="https://juejin.im/user/55edc49b60b294604dbc746e" target="_blank" class="nav-list-link">JUEJIN</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Shell编程笔记01</h1><div class="post-info">2017年3月1日</div><div class="post-content"><p>Shell概述</p>
+<blockquote>
+<p>Shell 是一个用C语言编写的程序，它是用户使用Linux的桥梁。Shell既是一种命令语言，又是一种程序设计语言。<br>Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。<br><img src="http://ww4.sinaimg.cn/large/006tNc79gy1fd6bbbjo0ej307w08imxk.jpg" alt=""></p>
+</blockquote>
+<ul>
+<li>Shell 的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括 <code>sh</code> <code>ksh</code> <code>Bash</code> <code>psh</code> <code>zsh</code>;  C家族主要包括：<code>csh</code> <code>tcsh</code></li>
+</ul>
+<p>查看当前Shell类型</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br></pre></td></tr></table></figure>
+<p>/bin/zsh</p>
+<p>查看当前系统支持的shell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本的执行方法"><a href="#脚本的执行方法" class="headerlink" title="脚本的执行方法"></a>脚本的执行方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#The frist shell</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"\e[1;36m hello world \e[0m"</span></span><br></pre></td></tr></table></figure>
+<p>执行上面的脚本</p>
+<ul>
+<li>赋予执行权限，直接运行 <code>chmod 755 hello.sh</code>  <code>./hello.sh</code></li>
+<li>通过bash调用执行脚本 <code>bash hello.sh</code></li>
+</ul>
+<h2 id="Bash的基本功能"><a href="#Bash的基本功能" class="headerlink" title="Bash的基本功能"></a>Bash的基本功能</h2><h3 id="命令别名与快捷键"><a href="#命令别名与快捷键" class="headerlink" title="命令别名与快捷键"></a>命令别名与快捷键</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看系统中别名配置列表</span></span><br><span class="line"> <span class="built_in">alias</span></span><br><span class="line"><span class="comment">#设置别名</span></span><br><span class="line"> <span class="built_in">alias</span> rm=<span class="string">"rm -i"</span></span><br></pre></td></tr></table></figure>
+<p>注意：以上alias 是临时的一旦用户注销就回销毁<br>如果想始终生效需要修改 <code>.bashrc</code>文件<br> <code>.bashrc</code> 文件修改后需要重新登录生效<br> <code>source .bashrc</code>  可以直接生效</p>
+<h3 id="删除别名"><a href="#删除别名" class="headerlink" title="删除别名"></a>删除别名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unalias</span></span><br></pre></td></tr></table></figure>
+<p>这个也是临时删除，永久删除修改 <code>.bashrc</code></p>
+<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><ul>
+<li>ctrl + c  强制当前命令</li>
+<li>ctrl + l   清屏</li>
+<li>ctrl + a  光标移到到命令行首</li>
+<li>ctrl + e  光标移到到命令行尾</li>
+<li>ctrl + u  从光标所在位置删除到行首</li>
+<li>ctrl + z  把命令放入后台</li>
+<li>ctrl + r  在历史命令中搜索</li>
+</ul>
+<h3 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">history</span> [选项]</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<ul>
+<li>-c ： 清空历史命令</li>
+<li>-w ： 把缓存中的历史命令写入历史命令保存文件<code>~/.bash_history</code><br>注意： history 命令是历史命令和本次登录命令。.bash_history文件则为正常注销退出之后，存入的历史命令。<br>-w  是手动把临时历史写入 .bash_history<br>历史命令默认会保存1000条，可以在环境变量配置文件/etc/profile中进行修改 HISTSIZE=1000</li>
+</ul>
+<h3 id="历史命令的调用"><a href="#历史命令的调用" class="headerlink" title="历史命令的调用"></a>历史命令的调用</h3><ul>
+<li>使用上下箭头调用以前的历史命令</li>
+<li>使用<code>!n</code> 重复执行第n条历史命令</li>
+<li>使用<code>!!</code> 重复执行上一条命令</li>
+<li>使用<code>!字符串</code>  重复执行最后一条以该字符串开头的命令</li>
+</ul>
+<h3 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h3><p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1fd7fpx9sx6j30xg0e7acw.jpg" alt=""></p>
+<h3 id="多命令顺序执行"><a href="#多命令顺序执行" class="headerlink" title="多命令顺序执行"></a>多命令顺序执行</h3><p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1fd7fx4adx7j30ml089mye.jpg" alt=""></p>
+<h3 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[命令1] | [命令2]</span><br><span class="line"> <span class="comment">#命令1的正确输出作为命令2的操作对象</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1fd7gto0gjkj30wi0ckdik.jpg" alt=""></p>
+<h3 id="shell中特殊符号"><a href="#shell中特殊符号" class="headerlink" title="shell中特殊符号"></a>shell中特殊符号</h3><p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1fd7h458m6rj30q409wacv.jpg" alt=""></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/03/10/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86/" class="prev">上一篇</a><a href="/2017/02/28/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%91%BD%E4%BB%A4/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'yunkou-blog';
+var disqus_identifier = '2017/03/01/Shell编程笔记01/';
+var disqus_title = 'Shell编程笔记01';
+var disqus_url = 'http://yoursite.com/2017/03/01/Shell编程笔记01/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//yunkou-blog.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2019 <a href="http://yoursite.com">Yunkou</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-71814553-1",'auto');ga('send','pageview');</script></body></html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 《鸟哥的私房菜》读书笔记(一) · 🍺寇老师的小站🍺</title><meta name="description" content="《鸟哥的私房菜》读书笔记(一) - Yunkou"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="🍺寇老师的小站🍺"><meta name="generator" content="Hexo 4.0.0"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/Yunkou" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="https://juejin.im/user/55edc49b60b294604dbc746e" target="_blank" class="nav-list-link">JUEJIN</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">《鸟哥的私房菜》读书笔记(一)</h1><div class="post-info">2017年2月10日</div><div class="post-content"><h2 id="1-文件的类型与权限"><a href="#1-文件的类型与权限" class="headerlink" title="1. 文件的类型与权限"></a>1. 文件的类型与权限</h2><p>命令行输入<code>ls -al</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu-512mb-nyc1-01:~# ls -al</span><br><span class="line">total 28</span><br><span class="line">drwx------  4 root root 4096 Feb  9 00:34 .</span><br><span class="line">drwxr-xr-x 23 root root 4096 Feb  9 00:31 ..</span><br><span class="line">-rw-------  1 root root   10 Feb  9 00:34 .bash_history</span><br><span class="line">-rw-r--r--  1 root root 3106 Oct 22  2015 .bashrc</span><br><span class="line">drwx------  2 root root 4096 Feb  9 00:33 .cache</span><br><span class="line">-rw-r--r--  1 root root    0 Feb  9 00:31 .cloud-locale-test.skip</span><br><span class="line">-rw-r--r--  1 root root  148 Aug 17  2015 .profile</span><br><span class="line">drwx------  2 root root 4096 Feb  9 00:31 .ssh</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1fcjxxsb3bij30o704kwfb.jpg" alt=""></p>
+<p><img src="http://ww4.sinaimg.cn/large/006y8lVagy1fcjzdox825j308l04t74m.jpg" alt=""></p>
+<h3 id="第一个字符代表这个文件的类型-如目录、文件或链接文件等等-："><a href="#第一个字符代表这个文件的类型-如目录、文件或链接文件等等-：" class="headerlink" title="第一个字符代表这个文件的类型(如目录、文件或链接文件等等)："></a>第一个字符代表这个文件的类型(如目录、文件或链接文件等等)：</h3><ul>
+<li>当为[ d ]则是目录</li>
+<li>当为[ - ]则是文件</li>
+<li>若是[ l ]则表示为连结档(link file)；</li>
+<li>若是[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
+<li>若是[ c ]则表示为装置文件里面的串行端口设备,例如键盘、鼠标(一次性读取装置)</li>
+</ul>
+<h3 id="接下来的字符中-以三个为一组-且均为「rwx」-的三个参数的组合"><a href="#接下来的字符中-以三个为一组-且均为「rwx」-的三个参数的组合" class="headerlink" title="接下来的字符中,以三个为一组,且均为「rwx」 的三个参数的组合"></a>接下来的字符中,以三个为一组,且均为「rwx」 的三个参数的组合</h3><p> [ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute) 要注意的是,这三个权限的位置不会改变,如果没有权限,就会出现减号[ - ]</p>
+<ul>
+<li>第一组为『文件拥有者的权限』</li>
+<li>第二组为『同群组的权限』</li>
+<li>第三组为『其他非本群组的权限』</li>
+</ul>
+<h3 id="以-rw-r-r-为例"><a href="#以-rw-r-r-为例" class="headerlink" title="以-rw-r--r--为例:"></a>以<code>-rw-r--r--</code>为例:</h3><ul>
+<li><code>-</code> 表示是个文件</li>
+<li><code>rw-</code>  当前用户 可读可写不可执行</li>
+<li><code>r--</code>  用户所在用户组 可读 不可写 不可执行</li>
+<li><code>r--</code>  其他用户  可读 不可写 不可执行</li>
+</ul>
+<h2 id="2-如何修改文件的属性和权限"><a href="#2-如何修改文件的属性和权限" class="headerlink" title="2. 如何修改文件的属性和权限"></a>2. 如何修改文件的属性和权限</h2><p><strong>记住三个命令：</strong></p>
+<ol>
+<li><strong>chgrp</strong>：改变用户所在用户组</li>
+<li><strong>chown</strong>:  改变文件所有者</li>
+<li><strong>chmod</strong>： 改变文件的权限</li>
+</ol>
+<h3 id="chgrp-命令"><a href="#chgrp-命令" class="headerlink" title="chgrp 命令"></a>chgrp 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] dirname/filename ...</span><br></pre></td></tr></table></figure>
+
+<p>[-R] : 递归修改，即该目录下所有文件</p>
+<h3 id="chown-命令"><a href="#chown-命令" class="headerlink" title="chown 命令"></a>chown 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] 账号名 文件或者目录</span><br><span class="line">chgrp [-R] 账号名:组名 文件或者目录</span><br><span class="line">chgrp [-R] 账号名.组名 文件或者目录</span><br></pre></td></tr></table></figure>
+
+<p>账号名.组名  如果账号名中有点会造成误判 比如Yun.kou.group  建议用 冒号</p>
+<h3 id="chmod-命令"><a href="#chmod-命令" class="headerlink" title="chmod 命令"></a>chmod 命令</h3><p>Linux中用九位三组来表示文件的权限<br>三组：own ，group， other<br>权限：read， write，execute（rwx）<br>如果没有对应的权限用-代替<br>rwx正好和可以用二进制表示，有权限记1 没有记0<br>-rwxrwxrwx 对应 -[111][111][111]三位转成十进制 为 -777<br>这样就可以用数字来改变文件的权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] 644 dirname/filename ...</span><br></pre></td></tr></table></figure>
+
+<p>644 每个数位转成二进制数 110100100 再转成rwx模式，rw-r—r—</p>
+<p><strong>有几个例子加强记忆</strong><br>-rw——- (600) 只有所有者才有读和写的权限<br>-rw-r–r– (644) 只有所有者才有读和写的权限，组群和其他人只有读的权限<br>-rwx—— (700) 只有所有者才有读，写，执行的权限<br>-rwxr-xr-x (755) 只有所有者才有读，写，执行的权限，组群和其他人只有读和执行的权限<br>-rwx–x–x (711) 只有所有者才有读，写，执行的权限，组群和其他人只有执行的权限<br>-rw-rw-rw- (666) 每个人都有读写的权限<br>-rwxrwxrwx (777) 每个人都有读写和执行的权限</p>
+<h3 id="chmod-也可以制定修改"><a href="#chmod-也可以制定修改" class="headerlink" title="chmod 也可以制定修改"></a>chmod 也可以制定修改</h3><p><img src="http://ww1.sinaimg.cn/large/006y8lVagy1fclph7t81vj30jp06twf1.jpg" alt=""></p>
+<p><code>u</code> 代表当前用户<br><code>g</code> 代表所在群组<br><code>o</code> 表示其他用户<br><code>a</code> 表示所有</p>
+<p><code>+</code>  表示增加权限<br><code>-</code>  表示删除权限<br><code>=</code>  表示赋值权限</p>
+<p>具体用法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">chmod [-R] u=rwx,g=rx,o=r dirname/filename ...</span><br><span class="line">ls -al dirname/filename ...</span><br><span class="line">-rwxr-xr--  ...</span><br><span class="line">chmod [-R] a+w dirname/filename ...</span><br><span class="line">-rwxrwxrw- ...</span><br><span class="line">chmod [-R] a-x dirname/filename ...</span><br><span class="line">-rw-rw-rw- ...</span><br></pre></td></tr></table></figure>
+
+<p><code>=</code>  赋值将影响 rwx 的值 而 <code>-</code>  <code>+</code>  只改变修改值 对其他没有影响</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/02/10/%E8%AF%BB%E6%9D%91%E4%B8%8A%E6%98%A5%E6%A0%91%E3%80%8A%E6%88%91%E7%9A%84%E8%81%8C%E4%B8%9A%E6%98%AF%E5%B0%8F%E8%AF%B4%E5%AE%B6%E3%80%8B/" class="prev">上一篇</a><a href="/2017/01/27/im%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'yunkou-blog';
+var disqus_identifier = '2017/02/10/《鸟哥的私房菜》读书笔记-一/';
+var disqus_title = '《鸟哥的私房菜》读书笔记(一)';
+var disqus_url = 'http://yoursite.com/2017/02/10/《鸟哥的私房菜》读书笔记-一/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//yunkou-blog.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2019 <a href="http://yoursite.com">Yunkou</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-71814553-1",'auto');ga('send','pageview');</script></body></html>

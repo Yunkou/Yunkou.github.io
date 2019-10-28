@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Linux学习笔记-基础与命令 · 🍺寇老师的小站🍺</title><meta name="description" content="Linux学习笔记-基础与命令 - Yunkou"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="🍺寇老师的小站🍺"><meta name="generator" content="Hexo 4.0.0"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/Yunkou" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="https://juejin.im/user/55edc49b60b294604dbc746e" target="_blank" class="nav-list-link">JUEJIN</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Linux学习笔记-基础与命令</h1><div class="post-info">2017年2月28日</div><div class="post-content"><h2 id="密码原则"><a href="#密码原则" class="headerlink" title="密码原则"></a>密码原则</h2><ul>
+<li>复杂性：1.  八位字符以上、大小写字母、数字、符号  2 不能是英文单词 3 不能是和用户相关的内容</li>
+<li>易记忆性</li>
+<li>时效性</li>
+</ul>
+<h2 id="Centos6-3软件包选择"><a href="#Centos6-3软件包选择" class="headerlink" title="Centos6.3软件包选择"></a>Centos6.3软件包选择</h2><ul>
+<li>Desktop（桌面）</li>
+<li>Minimal Desktop （最小化桌面）</li>
+<li>Minimal（最小化）</li>
+<li>Basic Server （基本服务器）</li>
+<li>Database Server （数据库服务器）</li>
+<li>Web Server （网页服务器）</li>
+<li>Virtual Host （虚拟主机）</li>
+<li>software development workstation  （软件开发工作站）</li>
+</ul>
+<h2 id="安装日志"><a href="#安装日志" class="headerlink" title="安装日志"></a>安装日志</h2><ul>
+<li>/root/install.log： 存储了安装在系统中的软件包及其版本信息</li>
+<li>/root/install.log.syslog: 存储了安装过程中留下的事件记录</li>
+<li>/root/anaconda-ks.cfg:  以Kickstart配置文件的格式记录安装过程中设置的选项信息</li>
+</ul>
+<p>注意：/root/anaconda-ks.cfg 可用于网络批量安装</p>
+<h3 id="Linux安装时至少划分哪两个分区才能正常安装使用？"><a href="#Linux安装时至少划分哪两个分区才能正常安装使用？" class="headerlink" title="Linux安装时至少划分哪两个分区才能正常安装使用？"></a>Linux安装时至少划分哪两个分区才能正常安装使用？</h3><p>Linux安装时至少划分根分区/和SWAP两个分区才能正常安装使用。</p>
+<h1 id="Linux命令基本格式及文件处理命令"><a href="#Linux命令基本格式及文件处理命令" class="headerlink" title="Linux命令基本格式及文件处理命令"></a>Linux命令基本格式及文件处理命令</h1><h2 id="Linux命令格式"><a href="#Linux命令格式" class="headerlink" title="Linux命令格式"></a>Linux命令格式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu-512mb-nyc1-01:~<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>root</code>   当前用户</li>
+<li><code>ubuntu-512mb-nyc1-01</code>  登录主机名</li>
+<li><code>~</code>   当前目录位置</li>
+<li><code>#</code>   当前用户身份为超级管理员 （如果是普通用户，应该为 $）</li>
+</ul>
+<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令 [选项] [参数]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>[] 内可选</li>
+<li>可以用简写 <code>-a</code> 等同 <code>--all</code></li>
+</ul>
+<h3 id="查询目录中内容：ls"><a href="#查询目录中内容：ls" class="headerlink" title="查询目录中内容：ls"></a>查询目录中内容：ls</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [选项] [文件或者目录]</span><br></pre></td></tr></table></figure>
+
+<p><strong>选项：</strong></p>
+<ul>
+<li>-a 显示所有文件，包含隐藏文件</li>
+<li>-l 显示详细信息</li>
+<li>-d 查看目录属性</li>
+<li>-h 人性化显示文件大小</li>
+<li>-i 显示inode 每个文件都会有个id号，查找文件的时候，都是根据这个id号来查找</li>
+</ul>
+<p>在Linux中，.开头的文件一般为隐藏文件，隐藏文件设计初衷是告诉用户，这个是系统文件或者配置文件，不希望用户频繁操作，避免误操作。</p>
+<h2 id="Linux目录处理命令"><a href="#Linux目录处理命令" class="headerlink" title="Linux目录处理命令"></a>Linux目录处理命令</h2><h3 id="建立目录：mkdir"><a href="#建立目录：mkdir" class="headerlink" title="建立目录：mkdir"></a>建立目录：mkdir</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir [-p] [目录名]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意：make  directories<br><code>-p</code> :  递归创建</p>
+<h3 id="切换所在目录：cd"><a href="#切换所在目录：cd" class="headerlink" title="切换所在目录：cd"></a>切换所在目录：cd</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> [选项] [目录名]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意：change  directory<br>cd 的简化操作<br><code>cd  ~</code>  进入当前用户的目录 可以用直接用 <code>cd</code><br><code>cd -</code>  进入上次目录<br><code>cd ..</code>  进入上一级目录<br><code>cd .</code>  进入当前目录</p>
+<h3 id="删除空目录：rmdir"><a href="#删除空目录：rmdir" class="headerlink" title="删除空目录：rmdir"></a>删除空目录：rmdir</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmdir [目录名]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意：remove empty directories<br>只能删除空文件，实际使用场景比较少</p>
+<h3 id="删除文件或目录：rm"><a href="#删除文件或目录：rm" class="headerlink" title="删除文件或目录：rm"></a>删除文件或目录：rm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [选项] [文件或者目录]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意：remove<br>选项：<br><code>-r</code>   删除目录<br><code>-f</code>   强制</p>
+<h3 id="复制命令：cp"><a href="#复制命令：cp" class="headerlink" title="复制命令：cp"></a>复制命令：cp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [选项] [原文件或者目录] [目标目录]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意：copy<br>选项：<br><code>-r</code>   复制目录<br><code>-p</code>   连带文件属性复制<br><code>-d</code>   若原文件是链接文件，则复制链接属性<br><code>-a</code>   相当于 -pdr   </p>
+<h3 id="剪切或者改名命令：mv"><a href="#剪切或者改名命令：mv" class="headerlink" title="剪切或者改名命令：mv"></a>剪切或者改名命令：mv</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv [原文件或者目录] [目标目录]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意：move<br>注意，目标目录和原文件同目录那么 mv 变成了重命名命令</p>
+<h3 id="链接命令-：ln"><a href="#链接命令-：ln" class="headerlink" title="链接命令 ：ln"></a>链接命令 ：ln</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln [-s] [原文件] [目标目录]</span><br></pre></td></tr></table></figure>
+<p>命令英文原意: link<br>功能描述：生成链接文件<br>-s  创建软连接</p>
+<h3 id="Linux中常见目录作用"><a href="#Linux中常见目录作用" class="headerlink" title="Linux中常见目录作用"></a>Linux中常见目录作用</h3><ul>
+<li>/ 根目录</li>
+<li>/bin 命令保存目录（普通用户可以读取的命令）</li>
+<li>/boot 启动目录。启动相关文件</li>
+<li>/dev 设备文件保存目录</li>
+<li>/etc 配置文件保存目录</li>
+<li>/home 普通用户目录</li>
+<li>/lib 系统库保存目录</li>
+<li>/mnt 系统挂载目录</li>
+<li>/media 挂载目录</li>
+<li>/root  超级用户目录</li>
+<li>/tmp 临时目录</li>
+<li>/sbin 命令保存目录</li>
+<li>/proc 直接写入内存</li>
+<li>/sys  </li>
+<li>/usr 系统软件资源目录</li>
+<li>/usr/bin/ 系统命令（普通用户）</li>
+<li>/usr/sbin/系统命令（超级用户）</li>
+<li>/var 系统相关文档内容</li>
+</ul>
+<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令locate"><a href="#文件搜索命令locate" class="headerlink" title="文件搜索命令locate"></a>文件搜索命令locate</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate [原文件名]</span><br></pre></td></tr></table></figure>
+<p>locate 搜索的是 <code>/var/lib/mlocate</code> 这个数据库<br>这个数据库每天更新一次，所以新建的文件 locate 命令搜索不到<br>手动更新数据库命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updatedb</span><br></pre></td></tr></table></figure>
+<p>locate 命令 配置文件为 <code>/etc/updatedb.conf</code><br><code>updatedb.conf</code>简要说明：</p>
+<ul>
+<li>PRUNE_BIND_MOUNTS=”yes”   是否开启搜索限制</li>
+<li>PRUNENAMES=”.git .bzr .hg .svn”  搜索时，不搜索的文件类型</li>
+<li>PRUNEPATHS=“[目录]”  搜索时，不搜索的路径</li>
+<li>PRUNEFS=“[文件系统]” 搜索时，不搜索的文件系统</li>
+</ul>
+<h3 id="locate-命令的特点"><a href="#locate-命令的特点" class="headerlink" title="locate 命令的特点"></a>locate 命令的特点</h3><ul>
+<li>只能搜索文件名</li>
+<li>搜索速度快</li>
+</ul>
+<h3 id="搜索命令的命令：whereis"><a href="#搜索命令的命令：whereis" class="headerlink" title="搜索命令的命令：whereis"></a>搜索命令的命令：whereis</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis [选项] [系统命令名]</span><br></pre></td></tr></table></figure>
+<p>whereis 搜索命令所在路径以及帮助文档所在位置<br>选项：</p>
+<ul>
+<li>-b 只查找可执行文件</li>
+<li>-m 只查找帮助文件</li>
+</ul>
+<h3 id="搜索命令的命令：which"><a href="#搜索命令的命令：which" class="headerlink" title="搜索命令的命令：which"></a>搜索命令的命令：which</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> [系统命令名]</span><br></pre></td></tr></table></figure>
+<p>which 搜索命令所在的路径以及别名</p>
+<h3 id="PATH环境变量"><a href="#PATH环境变量" class="headerlink" title="PATH环境变量"></a>PATH环境变量</h3><p>PATH环境变量：定义的是系统搜索命令的路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu-512mb-nyc1-01:~<span class="comment"># echo $PATH</span></span><br><span class="line">/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/<span class="built_in">local</span>/games:/snap/bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] [搜索条件]</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>避免大范围搜索，会非常耗费系统资源</li>
+<li>find是在系统当中搜索符合条件的文件名。如果需要匹配，使用通配符匹配，通配符是完全匹配</li>
+</ul>
+<h4 id="Linux中的通配符"><a href="#Linux中的通配符" class="headerlink" title="Linux中的通配符"></a>Linux中的通配符</h4><ul>
+<li><ul>
+<li>匹配任意内容</li>
+</ul>
+</li>
+<li>？匹配人意一个字符</li>
+<li>[] 匹配任意一个中括号内的字符</li>
+</ul>
+<h4 id="find：按照文件大小搜索"><a href="#find：按照文件大小搜索" class="headerlink" title="find：按照文件大小搜索"></a>find：按照文件大小搜索</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] -size [文件大小]</span><br></pre></td></tr></table></figure>
+<p>注意：<br>[文件大小] 参数 大于25k  +25k   小于25k  -25k  等于25k 25k<br>注意千字节小写k，兆字节大写M（+25M）<br>[文件大小]  默认单位为数据块 ，即一个扇区 为125k</p>
+<h4 id="find：按照i节点查找"><a href="#find：按照i节点查找" class="headerlink" title="find：按照i节点查找"></a>find：按照i节点查找</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] -inum [i 节点]</span><br></pre></td></tr></table></figure>
+<p>按照Linux 节点搜索文件</p>
+<h4 id="复合逻辑搜索："><a href="#复合逻辑搜索：" class="headerlink" title="复合逻辑搜索："></a>复合逻辑搜索：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] -size +20k -a -size -50k</span><br></pre></td></tr></table></figure>
+<p>查找[搜索范围]目录下，大于20k且小于50k的文件<br>-a  and 逻辑与，两个条件都满足<br>-o or     逻辑或，两个条件满足一个即可</p>
+<h4 id="用-exec-处理find-结果"><a href="#用-exec-处理find-结果" class="headerlink" title="用 -exec 处理find 结果"></a>用 -exec 处理find 结果</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] -size +20k -a -size -50k -<span class="built_in">exec</span> ls -lh &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p><code>{} \;</code>   为标准格式，只要出现 <code>-exec</code> 就要出现 <code>{} \;</code><br>这句的意思为 把find 出的结果，交给 ls -lh 处理</p>
+<h3 id="grep-命令"><a href="#grep-命令" class="headerlink" title="grep: 命令"></a>grep: 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep [选项] 字符串 文件名</span><br></pre></td></tr></table></figure>
+<p>在文件当中匹配复合条件的字符串<br>选项：</p>
+<ul>
+<li>-i 忽略大小写</li>
+<li>-v 排除指定字符串<br>grep命令：在文件当中搜索符合条件的字符串，如果需要匹配，使用正则表达式进行匹配，正则表达式时包含匹配</li>
+</ul>
+<h2 id="帮助命令-man"><a href="#帮助命令-man" class="headerlink" title="帮助命令 man"></a>帮助命令 man</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man [命令]</span><br></pre></td></tr></table></figure>
+<p>man命令简明说明：</p>
+<ul>
+<li>NAME ： 命令的名称，和对命令的简介</li>
+<li>SYNOPSIS：概要 简单命令使用格式</li>
+<li>DESCRIPTION：详细命令选项参数的介绍<br>DESCRIPTION 一般比较长，可以用 <code>/</code>  查找（类似vim） <code>n</code> 向下查找，<code>shift</code> 向上查找</li>
+</ul>
+<h3 id="man-的级别"><a href="#man-的级别" class="headerlink" title="man 的级别"></a>man 的级别</h3><p>Linux man 命令是有级别的，查看帮助等级</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man -f [命令]</span><br></pre></td></tr></table></figure>
+<p>级别说明：</p>
+<ol>
+<li>查看命令的帮助</li>
+<li>查看可被内核调用的函数帮助</li>
+<li>查看函数和函数库的帮助</li>
+<li>查看特殊文件的帮助（主要是/dev 目录下的文件）</li>
+<li>查看配置文件的帮助</li>
+<li>查看游戏的帮助</li>
+<li>查看其他杂项的帮助</li>
+<li>查看系统管理员可用命令的帮助</li>
+<li>查看和内核相关文件的帮助</li>
+</ol>
+<p>说明：</p>
+<ul>
+<li>默认查看最低级别</li>
+<li>查看对应级别命令 man [-级别] [命令] </li>
+</ul>
+<h3 id="查看和命令相关的所有帮助"><a href="#查看和命令相关的所有帮助" class="headerlink" title="查看和命令相关的所有帮助"></a>查看和命令相关的所有帮助</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man -k [命令]</span><br></pre></td></tr></table></figure>
+<p>这条命令等同与 apropos</p>
+<h3 id="选项帮助"><a href="#选项帮助" class="headerlink" title="选项帮助"></a>选项帮助</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[命令] --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="详细命令帮助info"><a href="#详细命令帮助info" class="headerlink" title="详细命令帮助info"></a>详细命令帮助info</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info [命令]</span><br></pre></td></tr></table></figure>
+<p>info是Linux下的一个巨大的说明文档，info 相当于检索到[命令]<br>操作说明（按键）：</p>
+<ul>
+<li>enter：进入子帮助页面（带有*号标记）</li>
+<li>u：       进入上层页面</li>
+<li>n：       进入下一个小结的帮助</li>
+<li>p：       进入上一个小结的帮助</li>
+<li>q：       推出</li>
+</ul>
+<h2 id="Linux-压缩命令"><a href="#Linux-压缩命令" class="headerlink" title="Linux 压缩命令"></a>Linux 压缩命令</h2><p>常用的压缩格式</p>
+<ul>
+<li>.zip .gz  .bz2</li>
+<li>.tar.gz  .tar.bz2</li>
+</ul>
+<h3 id="zip格式的压缩"><a href="#zip格式的压缩" class="headerlink" title=".zip格式的压缩"></a>.zip格式的压缩</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip [压缩文件名] [源文件]</span><br><span class="line">zip -r [压缩文件名] [源目录]</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>要先写压缩文件名</li>
+<li>压缩文件名是可以不加.zip 后缀名 Linux是不识别后缀名的，都是文件名。但是为了区分，约定俗成都会给压缩文件加上后缀名，为了日后方便维护</li>
+</ul>
+<h3 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip [压缩文件]</span><br></pre></td></tr></table></figure>
+
+<h3 id="gz格式压缩"><a href="#gz格式压缩" class="headerlink" title=".gz格式压缩"></a>.gz格式压缩</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gzip [源文件]</span><br><span class="line"><span class="comment">#压缩为.gz格式的压缩文件，源文件会消失 </span></span><br><span class="line">gzip -r [源文件] &gt; [压缩文件]</span><br><span class="line"><span class="comment">#压缩为.gz格式的压缩文件，源文件会保留</span></span><br><span class="line">gzip -r [目录]</span><br><span class="line"><span class="comment">#压缩目录下所有的子文件，但是不能压缩目录</span></span><br><span class="line">gzip -d [压缩文件]</span><br><span class="line"><span class="comment">#解压缩文件</span></span><br><span class="line">gunzip [压缩文件]</span><br><span class="line"><span class="comment">#解压缩文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="bz2格式压缩"><a href="#bz2格式压缩" class="headerlink" title=".bz2格式压缩"></a>.bz2格式压缩</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bzip2 [源文件]</span><br><span class="line"><span class="comment">#压缩为.bz2格式的压缩文件，源文件会消失 </span></span><br><span class="line">bzip2 -k [源文件]</span><br><span class="line"><span class="comment">#压缩为.bz2格式的压缩文件，源文件会保留</span></span><br></pre></td></tr></table></figure>
+<p>注意：bzip2命令不能压缩目录</p>
+<h2 id="关机和重启"><a href="#关机和重启" class="headerlink" title="关机和重启"></a>关机和重启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown [选项] 时间</span><br></pre></td></tr></table></figure>
+<p><strong>选项：</strong></p>
+<ul>
+<li>-c: 取消前一个关机命令</li>
+<li>-h: 关机</li>
+<li>-r:  重启<br>注意不要把服务器关机，虽然服务商和硬件有远程关机命令但是依然不建议服务器关机，个人电脑可以。服务器重启就可以了。</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/03/01/Shell%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B001/" class="prev">上一篇</a><a href="/2017/02/17/%E8%AF%BB%E3%80%8A%E5%88%AB%E5%A4%84%E7%94%9F%E6%B4%BB%E3%80%8B/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'yunkou-blog';
+var disqus_identifier = '2017/02/28/Linux学习笔记-基础与命令/';
+var disqus_title = 'Linux学习笔记-基础与命令';
+var disqus_url = 'http://yoursite.com/2017/02/28/Linux学习笔记-基础与命令/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//yunkou-blog.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2019 <a href="http://yoursite.com">Yunkou</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-71814553-1",'auto');ga('send','pageview');</script></body></html>

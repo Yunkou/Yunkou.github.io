@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Linux 学习笔记-计划任务之Crontab · 🍺寇老师的小站🍺</title><meta name="description" content="Linux 学习笔记-计划任务之Crontab - Yunkou"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="🍺寇老师的小站🍺"><meta name="generator" content="Hexo 4.0.0"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/Yunkou" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="https://juejin.im/user/55edc49b60b294604dbc746e" target="_blank" class="nav-list-link">JUEJIN</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Linux 学习笔记-计划任务之Crontab</h1><div class="post-info">2017年3月17日</div><div class="post-content"><blockquote>
+<p>Crontab  从定时重复工作中解脱出来  </p>
+</blockquote>
+<h2 id="工作中遇到的困难"><a href="#工作中遇到的困难" class="headerlink" title="工作中遇到的困难"></a>工作中遇到的困难</h2><ul>
+<li>每分钟需要执行一个程序检查系统运行状态</li>
+<li>每天凌晨需要对过去一天的业务数据进行统计</li>
+<li>每个星期需要把日志文件备份</li>
+<li>每个月需要把数据库进行备份</li>
+</ul>
+<h2 id="Crontab-简介"><a href="#Crontab-简介" class="headerlink" title="Crontab 简介"></a>Crontab 简介</h2><h3 id="Crontab-是什么"><a href="#Crontab-是什么" class="headerlink" title="Crontab 是什么"></a>Crontab 是什么</h3><p>Crontab 是一个用于设置周期性被执行任务的工具。</p>
+<ul>
+<li>被周期性执行的任务我们陈伟Cron Job</li>
+<li>周期执行的任务列表我们称为Cron Table</li>
+</ul>
+<h2 id="Crontab-实践"><a href="#Crontab-实践" class="headerlink" title="Crontab 实践"></a>Crontab 实践</h2><h3 id="检查cron服务"><a href="#检查cron服务" class="headerlink" title="检查cron服务"></a>检查cron服务</h3><ul>
+<li>检查Crontab工具是否安装： crontab -l</li>
+<li>检查Crontab 服务是否启动： service crond status<h3 id="安装cron"><a href="#安装cron" class="headerlink" title="安装cron"></a>安装cron</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install vixie-cron</span><br><span class="line">yum install crontabs</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑定时任务脚本</span></span><br><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加一条简单的定时命令每分钟打印时间</span></span><br><span class="line">[vi模式] *／1 * * * * date &gt;&gt; /tmp/log.txt</span><br></pre></td></tr></table></figure>
+
+<p>一个实用的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示文件的最后三行</span></span><br><span class="line">tail -3 文件 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 动态刷新显示文件的最后几行</span></span><br><span class="line">tail -f 文件</span><br></pre></td></tr></table></figure>
+
+<h3 id="Crontab-的基本组成"><a href="#Crontab-的基本组成" class="headerlink" title="Crontab 的基本组成"></a>Crontab 的基本组成</h3><p>系统服务 <strong>crond</strong> 每分钟都会从配置文件刷新定时任务<br><img src="http://ww1.sinaimg.cn/large/006tKfTcly1fdq5o38sktj30kg07st9r.jpg" alt=""></p>
+<h3 id="Crontab-的配置文件格式"><a href="#Crontab-的配置文件格式" class="headerlink" title="Crontab 的配置文件格式"></a>Crontab 的配置文件格式</h3><p><code>* * * * * COMMAND</code><br><img src="http://ww1.sinaimg.cn/large/006tNc79ly1fdq5qq82ivj30ef072t9c.jpg" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#每晚的21:30重启apache</span></span><br><span class="line">30 21 * * * service httpd restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#每月1、10、22日的4:45重启apache</span></span><br><span class="line">45 4 1,10,22 * * service httpd restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#每月1到10日的4:45重启apache</span></span><br><span class="line">45 4 1-10 * * service httpd restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#每隔两分钟重启apache</span></span><br><span class="line">*／2 * * * * service httpd restart</span><br><span class="line">1-59/2 * * * * service httpd restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#晚上11点到早上7点之间，每小时重启apache</span></span><br><span class="line">0 23-7/1 * * * service httpd restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#每天18:00至23:00之间每隔30分钟重启apache</span></span><br><span class="line">0,30 18-23 * * * service httpd restart</span><br><span class="line">0-59/30 18-23 * * * service httpd restart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><ul>
+<li>表示人设时候都匹配</li>
+</ul>
+</li>
+<li>可以用“A,B,C”表示A或者B或者C时执行命令</li>
+<li>可以用“A-B” 表示 A到B之间时执行命令</li>
+<li>可以用“*/A” 表示每A分钟（小时等）执行一次命令</li>
+</ul>
+<h3 id="Crontab-命令"><a href="#Crontab-命令" class="headerlink" title="Crontab 命令"></a>Crontab 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab [选项]</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<ul>
+<li>-l  罗列定时任务列表</li>
+<li>-e 编辑配置文件</li>
+<li>-u 指定用户</li>
+</ul>
+<h3 id="Crontab-命令日志"><a href="#Crontab-命令日志" class="headerlink" title="Crontab 命令日志"></a>Crontab 命令日志</h3><p>/var/log/cron文件保存着cron的任务执行记录</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/03/24/Linux-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Linux%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7/" class="prev">上一篇</a><a href="/2017/03/10/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'yunkou-blog';
+var disqus_identifier = '2017/03/17/Linux-学习笔记-计划任务之Crontab/';
+var disqus_title = 'Linux 学习笔记-计划任务之Crontab';
+var disqus_url = 'http://yoursite.com/2017/03/17/Linux-学习笔记-计划任务之Crontab/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//yunkou-blog.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2019 <a href="http://yoursite.com">Yunkou</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-71814553-1",'auto');ga('send','pageview');</script></body></html>
